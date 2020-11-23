@@ -1,6 +1,15 @@
+.popup {
+
+}
+
 .popup_wrapper {
+    margin: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.popup_header {
+
 }
 
 .popup_inputs {
@@ -8,10 +17,18 @@
     flex-direction: column;
 }
 
+.popup_input {
+    height: 5vh;
+}
+
 .popup_actions {
     display: flex;
-    flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
+}
+
+.popup_submit {
+
 }
 
 .popup_cancel {

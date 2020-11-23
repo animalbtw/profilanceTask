@@ -9,10 +9,9 @@ import {
 import './Header.css'
 import Auth from "../dialog/Auth";
 
-function Header() {
+function Header(updateRole) {
 
     return (
-        <>
             <div className='header_wrapper'>
                 <div className="home">
                     <Link to='/' className='header_links'>
@@ -25,11 +24,9 @@ function Header() {
                     </Link>
                 </div>
                 <div className="auth">
-                    <Auth />
+                    <Auth updateRole={updateRole}/>
                 </div>
             </div>
-
-        </>
     );
 }
 
