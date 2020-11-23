@@ -1,0 +1,19 @@
+.popup_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup_inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup_actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.popup_cancel {
+    margin-left: 10px;
+}
