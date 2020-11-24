@@ -11,20 +11,20 @@ import News from "./components/news/News";
 
 function App() {
     const [role, setRole] = React.useState('');
-    console.log(`role: ${role}`)
+
     const updateRole = (value) => {
         setRole(value)
     }
     return (
         <Router>
             <div className='page_header'>
-                <Header updateRole={updateRole}/>
+                <Header updateRole={updateRole} role={role}/>
             </div>
             <Route exact path='/'>
-                <Home/>
+                <Home role={role}/>
             </Route>
             <Route path='/news'>
-                <News/>
+                <News role={role}/>
             </Route>
         </Router>
     );

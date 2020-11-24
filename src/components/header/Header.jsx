@@ -9,8 +9,7 @@ import {
 import './Header.css'
 import Auth from "../dialog/Auth";
 
-function Header(updateRole) {
-
+function Header(props) {
     return (
             <div className='header_wrapper'>
                 <div className="home">
@@ -24,7 +23,7 @@ function Header(updateRole) {
                     </Link>
                 </div>
                 <div className="auth">
-                    <Auth updateRole={updateRole}/>
+                    <Auth updateRole={props.updateRole} role={props.role}/>
                 </div>
             </div>
     );

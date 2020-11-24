@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import { admin } from "../../store/userStore";
 import { user } from "../../store/userStore";
 
-function Auth(updateRole) {
+function Auth(props) {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -13,61 +13,80 @@ function Auth(updateRole) {
     const closeModal = () => setOpen(false);
 
     const onSubmit = () => {
+        const modal = document.getElementById('popup_wrapper')
+        const popup_header = document.getElementById('popup_header')
         if (admin.login == username && admin.password == password) {
-            updateRole('admin');
+            props.updateRole('admin');
             setOpen(false);
-        }
-        if (user.login == username && user.password == password) {
+        } else if (user.login == username && user.password == password) {
+            props.updateRole('user');
             setOpen(false);
+        } else {
+            modal.style.border = 'thick solid red'
+            popup_header.innerText = 'Неверные данные'
         }
-
-        console.log(`in func: ${username}, ${password}`);
 
     }
 
     return (
         <div>
-            <button
-                type="button"
-                className='button'
-                onClick={() => setOpen(true)}>
-                Вход
-            </button>
-            <Popup
-                className='popup'
-                open={open}
-                closeOnDocumentClick
-                onClose={closeModal}>
-                <div className='popup_wrapper'>
-                    <div className="popup_header">
-                        Авторизация
+            {
+                props.role == '' ? (
+                    <div>
+                    <button
+                        type="button"
+                        className='button'
+                        onClick={() => setOpen(true)}>
+                        Вход
+                    </button>
+                    <Popup
+                        className='popup'
+                        open={open}
+                        closeOnDocumentClick
+                        onClose={closeModal}>
+                        <div
+                            className='popup_wrapper'
+                            id='popup_wrapper'>
+                            <div
+                                className='popup_header'
+                                id='popup_header'>
+                                Авторизация
+                            </div>
+                            <div className="popup_inputs">
+                                <input
+                                    className='popup_input'
+                                    type='text'
+                                    onChange={e => setUsername(e.target.value)}
+                                    placeholder='Пользоваель'/>
+                                <input
+                                    className='popup_input'
+                                    type='password'
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder='Пароль'/>
+                            </div>
+                            <div className="popup_actions">
+                                <button
+                                    className='popup_submit'
+                                    onClick={onSubmit}>
+                                    Подтвердить
+                                </button>
+                                <button
+                                    className='popup_cancel'
+                                    onClick={() => setOpen(false)}>
+                                    Отмена
+                                </button>
+                            </div>
+                        </div>
+                    </Popup>
                     </div>
-                    <div className="popup_inputs">
-                        <input
-                            className='popup_input'
-                            type='text'
-                            onChange={e => setUsername(e.target.value)}
-                            placeholder='Пользоваель'/>
-                        <input
-                            className='popup_input'
-                            type='password'
-                            onChange={e => setPassword(e.target.value)}
-                            placeholder='Пароль'/>
-                    </div>
-                    <div className="popup_actions">
-                        <button
-                            className='popup_submit'
-                            onClick={onSubmit}>
-                            Подтвердить
-                        </button>
-                        <button
-                            className='popup_cancel'
-                            onClick={() => setOpen(false)}>
-                            Отмена
-                        </button>
-                    </div>
-                </div>
-            </Popup>
+                ) : (
+                    <button
+                        onClick={() => props.updateRole('')}>
+                        Выйти
+                    </button>
+                )
+            }
+
         </div>
     )
 }

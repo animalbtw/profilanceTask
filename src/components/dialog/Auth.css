@@ -9,7 +9,9 @@
 }
 
 .popup_header {
-
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .popup_inputs {
@@ -28,9 +30,10 @@
 }
 
 .popup_submit {
-
+    padding: 10px;
 }
 
 .popup_cancel {
+    padding: 10px;
     margin-left: 10px;
 }

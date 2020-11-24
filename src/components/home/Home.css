@@ -1,0 +1,10 @@
+.home_wrapper {
+}
+
+.home_welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 64px;
+}
