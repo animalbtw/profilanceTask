@@ -1,82 +1,46 @@
 import * as React from 'react';
-import news from "../../store/newsStore";
+import newsStore from "../../store/newsStore";
+import Table from "./Table";
+import AddNews from "./AddNews";
 
 function News(props) {
-    const [header, setHeader] = React.useState('');
-    const [body, setBody] = React.useState('');
-    const [postDate, setPostDate] = React.useState('');
-    const [flag, setFlag] = React.useState('');
-    const date = new Date()
+    const [news, setNews] = React.useState(newsStore);
 
-    const onSubmit = () => {
-        const completeData = {
-            headerData: header,
-            bodyData: body,
-            dateData: date,
-            flagData: flag,
+    function addNews(item) {
+        item.id = news.length + 1;
+        setNews([...news, item]);
+    };
+
+    const deleteUser = id => {
+        setNews( news.filter(item => item.id !== id))
+    }
+
+    const renderAppender = (role) => {
+        switch (role) {
+            case 'admin':
+               return (
+                   <div>
+                       <AddNews addNews={addNews} role={props.role}/>
+                   </div>
+               );
+               break;
+            case 'user':
+                return(
+                    <div>
+                        <AddNews addNews={addNews} role={props.role}/>
+                    </div>
+            );
+                break;
+            default:
+                break;
         }
-
     }
 
     return (
-        <div className='news_wrapper'>
-            <div className="news_header">
-                <h2>
-                    Новости
-                </h2>
-            </div>
-            <div className="news_content">
-                <div className='news_header_content'>
-                    { news.header }
-                </div>
-                <div className='news_body_content'>
-                    { news.body }
-                </div>
-                <div className='news_date_content'>
-                    { news.date }
-                </div>
-            </div>
+        <div className='news-wrapper'>
+            <Table news={news} role={props.role} deleteUser={deleteUser}/>
             {
-                props.role == 'admin' ? (
-                    <h3>
-                        admin
-                    </h3>
-                ) : (
-                        <div>
-                            {
-                                props.role == 'user' ? (
-                                    <div>
-
-                                    </div>
-                                ) : (
-                                    // to user & admin
-                                        <form>
-                                            <label for='news_header_input'>
-                                                Заголовок:
-                                            </label>
-                                            <input
-                                                onChange={e => setHeader(e.target.value)}
-                                                type='text'
-                                                id='news_header_input'
-                                                name='news_header_input'
-                                            />
-                                            <label for='news_body_input'>
-                                                Новость:
-                                            </label>
-                                            <input
-                                                onChange={e => setBody(e.target.value)}
-                                                type='text'
-                                                id='news_body_input'
-                                                name='news_body_input'/>
-                                            <input
-                                                type='button'
-                                                value='Сохранить'
-                                                onClick={onSubmit}/>
-                                        </form>
-                                )
-                            }
-                        </div>
-                )
+                renderAppender(props.role)
             }
         </div>
     )

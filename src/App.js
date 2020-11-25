@@ -13,8 +13,9 @@ function App() {
     const [role, setRole] = React.useState('');
 
     const updateRole = (value) => {
-        setRole(value)
-    }
+        setRole(value);
+    };
+
     return (
         <Router>
             <div className='page_header'>
